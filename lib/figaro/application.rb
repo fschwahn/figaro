@@ -62,6 +62,8 @@ module Figaro
       else
         YAML.load(ERB.new(File.read(path)).result)
       end
+    rescue
+      nil
     end
 
     def global_configuration
