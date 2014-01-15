@@ -6,7 +6,11 @@ module Figaro
       def default_path
         rails_not_initialized! unless ::Rails.root
 
-        ::Rails.root.join("config", "application.yml")
+        if File.exists?(::Rails.root.join("config", "application.yml.enc"))
+          ::Rails.root.join("config", "application.yml.enc")
+        else
+          ::Rails.root.join("config", "application.yml")
+        end
       end
 
       def default_environment

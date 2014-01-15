@@ -53,7 +53,15 @@ module Figaro
     end
 
     def parse(path)
-      File.exist?(path) && YAML.load(ERB.new(File.read(path)).result) || {}
+      File.exist?(path) && parse_settings_file(path) || {}
+    end
+
+    def parse_settings_file(path)
+      if defined?(::Sekrets) && path.end_with?('.enc')
+        ::Sekrets.settings_for(path)
+      else
+        YAML.load(ERB.new(File.read(path)).result)
+      end
     end
 
     def global_configuration
