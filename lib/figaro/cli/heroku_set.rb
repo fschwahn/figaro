@@ -18,7 +18,7 @@ module Figaro
       end
 
       def vars
-        configuration.keys.map { |k| %(#{k}="$#{k}") }.join(" ")
+        configuration.keys.map { |k| %(#{k.upcase}="$#{k}") }.join(" ")
       end
     end
   end
